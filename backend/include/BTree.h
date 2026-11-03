@@ -2,8 +2,8 @@
 // Created by maldo on 11/2/2026.
 //
 
-#ifndef BAKINGBAD_BTREE_H
-#define BAKINGBAD_BTREE_H
+#ifndef CAKEQUEST_BTREE_H
+#define CAKEQUEST_BTREE_H
 
 #include <string>
 #include <vector>
@@ -31,4 +31,4 @@ public:
     bool search(std::string key);
 };
 
-#endif //BAKINGBAD_BTREE_H
+#endif

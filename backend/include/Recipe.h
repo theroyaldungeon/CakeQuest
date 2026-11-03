@@ -5,4 +5,14 @@
 #ifndef CAKEQUEST_RECIPE_H
 #define CAKEQUEST_RECIPE_H
 
-#endif //CAKEQUEST_RECIPE_H
+#include <string>
+#include <vector>
+
+struct Recipe {
+    int id;
+    std::string title;
+    std::vector<std::string> ingredients;
+    std::vector<std::string> directions;
+};
+
+#endif
