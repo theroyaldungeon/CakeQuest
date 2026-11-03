@@ -9,7 +9,7 @@
 int main() {
     auto recipes =
         RecipeLoader::loadRecipes(
-            "../../data/cleaned/sample_recipes.json"
+            "C:/Users/maldo/CLionProjects/BakingBad/data/cleaned/sample_recipes.json"
         );
 
     std::cout
