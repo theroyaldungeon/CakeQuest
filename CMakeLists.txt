@@ -10,4 +10,15 @@ add_executable(
         CakeQuest
         backend/src/BTree.cpp
         backend/tests/test_btree.cpp
+        backend/include/Recipe.h
+        backend/include/RecipeLoader.h
+        backend/include/HashIndex.h
+        backend/include/MinHeap.h
+        backend/include/RecommendationEngine.h
+        backend/src/RecipeLoader.cpp
+        backend/src/HashIndex.cpp
+        backend/src/MinHeap.cpp
+        backend/src/RecommendationEngine.cpp
+        backend/tests/test_hash.cpp
+        backend/tests/test_heap.cpp
 )
