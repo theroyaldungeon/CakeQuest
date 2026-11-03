@@ -19,7 +19,7 @@ void BTree::insert(std::string key) { // insertion method placehldr
     }
 }
 
-void BTree::search(std::string key) { // search method placehldr
+bool BTree::search(std::string key) { // search method placehldr
     if (root == nullptr) {
         return false;
     }

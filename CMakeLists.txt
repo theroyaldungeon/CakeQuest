@@ -8,8 +8,6 @@ include_directories(backend/include)
 
 add_executable(
         CakeQuest
-
         backend/src/BTree.cpp
-
         backend/tests/test_btree.cpp
 )
