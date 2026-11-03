@@ -4,3 +4,4 @@ cmake-build-*/
 *.o
 CMakeCache.txt
 CMakeFiles/
+data/raw/*.csv
