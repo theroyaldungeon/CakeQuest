@@ -8,8 +8,8 @@
 #include <string>
 #include <vector>
 
-class BTreeNode // Represents single node inside BTree
-{
+class BTreeNode { // Represents single node inside BTree
+
 public:
     std::vector<std::string> keys;
     std::vector<BTreeNode*> children;
@@ -19,8 +19,7 @@ public:
     BTreeNode(bool leaf);
 };
 
-class BTree // BTree used for ingredient indexing
-{
+class BTree { // BTree used for ingredient indexing
 private:
     BTreeNode* root;
 
