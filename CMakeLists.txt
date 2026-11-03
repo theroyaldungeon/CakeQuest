@@ -21,4 +21,5 @@ add_executable(
         backend/src/RecommendationEngine.cpp
         backend/tests/test_hash.cpp
         backend/tests/test_heap.cpp
+        backend/tests/test_loader.cpp
 )
