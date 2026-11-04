@@ -16,6 +16,7 @@ add_executable(
         backend/src/HashIndex.cpp
         backend/src/MinHeap.cpp
         backend/src/RecommendationEngine.cpp
+        backend/src/IngredientIndexBuilder.cpp
 )
 
 add_executable(

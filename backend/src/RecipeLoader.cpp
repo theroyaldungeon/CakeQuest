@@ -17,14 +17,12 @@ RecipeLoader::loadRecipes(const std::string& filename) {
     std::ifstream file(filename);
 
     if (!file.is_open()) {
-        std::cout << "Failed to open file."
-                  << std::endl;
+        std::cout << "Failed to open file." << std::endl;
 
         return recipes;
     }
 
     json data;
-
     file >> data;
 
     for (size_t i = 0; i < data.size(); i++) {
@@ -32,8 +30,13 @@ RecipeLoader::loadRecipes(const std::string& filename) {
 
         recipe.id = static_cast<int>(i);
 
-        recipe.title =
-            data[i]["title"];
+        recipe.title = data[i]["title"];
+
+        recipe.link = data[i]["link"];
+
+        recipe.source = data[i]["source"];
+
+        recipe.site = data[i]["site"];
 
         recipes.push_back(recipe);
     }
