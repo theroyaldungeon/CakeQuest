@@ -13,9 +13,10 @@ int main() {
         );
 
     std::cout
-        << "Recipes Loaded: "
-        << recipes.size()
-        << std::endl;
+        << "Recipes Loaded: " << recipes.size() << std::endl;
 
+    if (!recipes.empty()) {
+        std::cout << recipes[0].title << std::endl;
+    }
     return 0;
 }
