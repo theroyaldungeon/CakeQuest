@@ -2,21 +2,25 @@
 // Created by maldo on 11/2/2026.
 //
 
-#include "../include/BTree.h"
+#include "BTree.h"
 #include <iostream>
 
 int main() {
     BTree tree;
 
-    tree.insert("milk");
-    tree.insert("eggs");
-    tree.insert("flour");
+    IngredientEntry milk;
 
-    std::cout << std::boolalpha;
+    milk.ingredient = "milk";
 
-    std::cout << "Contains milk: " << tree.search("milk") << std::endl;
+    milk.recipeIDs.push_back(1);
 
-    std::cout << "Contains sugar: " << tree.search("sugar") << std::endl;
+    tree.insert(milk);
+
+    IngredientEntry* result = tree.search("milk");
+
+    if(result != nullptr) {
+        std::cout << result->ingredient << std::endl;
+    }
 
     return 0;
 }

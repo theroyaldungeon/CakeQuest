@@ -30,7 +30,7 @@ public:
 
     void insert(const IngredientEntry& entry);
 
-    bool search(std::string& ingredient);
+    IngredientEntry* search(const std::string& ingredient);
 };
 
 #endif

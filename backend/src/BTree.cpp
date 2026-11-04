@@ -12,22 +12,22 @@ BTree::BTree() { // Create empty tree
     root = nullptr;
 }
 
-void BTree::insert(std::string key) { // insertion method placehldr
+void BTree::insert(const IngredientEntry& entry) { // insertion method
     if (root == nullptr) {
         root = new BTreeNode(true);
-        root->keys.push_back(key);
+        root->keys.push_back(entry);
     }
 }
 
-bool BTree::search(std::string key) { // search method placehldr
+IngredientEntry* BTree::search(const std::string& ingredient) { // search method
     if (root == nullptr) {
-        return false;
+        return nullptr;;
     }
 
-    for (const std::string& currentKey : root->keys) {
-        if (currentKey == key) {
-            return true;
+    for (auto& entry : root->keys) {
+        if (entry.ingredient == ingredient) {
+            return &entry;
         }
     }
-    return false;
+    return nullptr;
 }
