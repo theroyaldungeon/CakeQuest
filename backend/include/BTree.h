@@ -28,9 +28,9 @@ private:
 public:
     BTree();
 
-    void insert(std::string key);
+    void insert(const IngredientEntry& entry);
 
-    bool search(std::string key);
+    bool search(std::string& ingredient);
 };
 
 #endif
