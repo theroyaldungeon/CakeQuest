@@ -5,13 +5,15 @@
 #ifndef CAKEQUEST_BTREE_H
 #define CAKEQUEST_BTREE_H
 
+#include "IngredientEntry.h"
+
 #include <string>
 #include <vector>
 
 class BTreeNode { // Represents single node inside BTree
 
 public:
-    std::vector<std::string> keys;
+    std::vector<IngredientEntry> keys;
     std::vector<BTreeNode*> children;
 
     bool leaf;
