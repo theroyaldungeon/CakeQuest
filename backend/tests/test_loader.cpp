@@ -16,7 +16,11 @@ int main() {
         << "Recipes Loaded: " << recipes.size() << std::endl;
 
     if (!recipes.empty()) {
-        std::cout << "First Recipe: " << recipes[0].title << std::endl;
+        std::cout << "Title: " << recipes[0].title << std::endl;
+
+        std::cout << "Ingredients: " << recipes[0].ingredients.size() << std::endl;
+
+        std::cout << "Directions: " << recipes[0].directions.size() << std::endl;
     }
     return 0;
 }

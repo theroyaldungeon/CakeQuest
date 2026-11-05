@@ -14,7 +14,7 @@ struct Recipe {
     std::string link;
     std::string source;
     std::string site;
-    std::vector<std::string> ingredients;
+    std::vector<std::string> ingredients; // NER
     std::vector<std::string> directions;
 
 };

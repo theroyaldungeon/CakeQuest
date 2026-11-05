@@ -31,12 +31,21 @@ RecipeLoader::loadRecipes(const std::string& filename) {
         recipe.id = static_cast<int>(i);
 
         recipe.title = data[i]["title"];
-
         recipe.link = data[i]["link"];
-
         recipe.source = data[i]["source"];
-
         recipe.site = data[i]["site"];
+
+        json nerIngredients = json::parse(data[i]["NER"].get<std::string>());
+
+        for (auto& ingredient : nerIngredients) {
+            recipe.ingredients.push_back(ingredient.get<std::string>());
+        }
+
+        json parsedDirections = json::parse(data[i]["directions"].get<std::string>());
+
+        for (auto& direction : parsedDirections) {
+            recipe.directions.push_back(direction.get<std::string>());
+        }
 
         recipes.push_back(recipe);
     }
