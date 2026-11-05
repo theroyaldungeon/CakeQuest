@@ -5,3 +5,4 @@ cmake-build-*/
 CMakeCache.txt
 CMakeFiles/
 data/raw/*.csv
+data/cleaned/200k.json

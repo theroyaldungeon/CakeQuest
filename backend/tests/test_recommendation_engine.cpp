@@ -9,20 +9,22 @@
 #include <iostream>
 
 int main() {
-    auto recipes =
-        RecipeLoader::loadRecipes("C:/Users/maldo/CLionProjects/BakingBad/data/cleaned/sample_recipes.json");
+    auto recipes = RecipeLoader::loadRecipes("C:/Users/maldo/CLionProjects/BakingBad/data/cleaned/200k.json");
 
     BTree tree;
 
     IngredientIndexBuilder::buildIndex(recipes, tree);
 
-    auto results = RecommendationEngine::searchRecipes("milk", tree, recipes);
+    std::cout<< "\n========== SINGLE INGREDIENT ==========\n";
+    auto searchResults = RecommendationEngine::searchRecipes("milk", tree, recipes);
 
-    std::cout << "Results Found: " << results.size() << std::endl;
+    std::cout << "Results Found: " << searchResults.size() << std::endl;
 
-    for(const auto& recipe : results) {
-        std::cout << recipe.title << std::endl;
+    for(size_t i = 0; i < std::min<size_t>(10, searchResults.size()); i++) {
+        std::cout << searchResults[i].title << std::endl;
     }
+
+    std::cout<< "\n========== EXACT MATCH ==========\n";
 
     std::vector<std::string> ingredients = {
         "milk",
@@ -33,19 +35,29 @@ int main() {
 
     auto exactMatches = RecommendationEngine::searchExactMatch(ingredients,tree);
 
-    std::cout << "Exact Matches:\n";
+    std::cout << "Exact Matches:\n" << exactMatches.size() << std::endl;
 
-    for(int id : exactMatches) {
-        std::cout << recipes[id].title << std::endl;
+    for(size_t i = 0; i < std::min<size_t>(10, exactMatches.size()); i++) {
+        std::cout << recipes[exactMatches[i]].title << std::endl;
     }
 
+    std::cout << "\n========== RANKED MATCH ==========\n";
     auto rankedMatches =
     RecommendationEngine::searchRankedMatches(ingredients, tree);
 
-    std::cout << "\nTop Ranked:\n";
+    std::cout << "\nRanked Matches:\n" << rankedMatches.size() << std::endl;
 
     for(int i = 0; i < 10 && i < rankedMatches.size(); i++) {
-        std::cout << recipes[rankedMatches[i].first].title << " (" << rankedMatches[i].second << " ingredients)\n";
+        std::cout << recipes[rankedMatches[i].first].title << " (" << rankedMatches[i].second << " matches)\n";
+    }
+
+    std::cout << "\n========== RECOMMENDED RECIPES ==========\n";
+    auto results = RecommendationEngine::recommendRecipes(ingredients, tree, recipes);
+
+    std::cout << "Recommended Recipes: " << results.size() << std::endl;
+
+    for(size_t i = 0; i < std::min<size_t>(10, results.size()); i++) {
+        std::cout << results[i].title << std::endl;
     }
 
     return 0;
