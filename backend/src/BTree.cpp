@@ -33,16 +33,29 @@ void BTree::insert(const IngredientEntry& entry) { // insertion method
 }
 
 IngredientEntry* BTree::search(const std::string& ingredient) { // search method
-    if (root == nullptr) {
-        return nullptr;;
+    return searchHelper(root,ingredient);
+}
+
+IngredientEntry* BTree::searchHelper(BTreeNode* node, const std::string& ingredient) {
+    if(node == nullptr) {
+        return nullptr;
     }
 
-    for (auto& entry : root->keys) {
-        if (entry.ingredient == ingredient) {
-            return &entry;
-        }
+    int i = 0;
+
+    while(i < node->keys.size() && ingredient > node->keys[i].ingredient) {
+        i++;
     }
-    return nullptr;
+
+    if(i < node->keys.size() && node->keys[i].ingredient == ingredient) {
+        return &node->keys[i];
+    }
+
+    if(node->leaf) {
+        return nullptr;
+    }
+
+    return searchHelper(node->children[i], ingredient);
 }
 
 void BTreeNode::insertNonFull(const IngredientEntry& entry) {

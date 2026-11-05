@@ -9,25 +9,34 @@ int main() {
     BTree tree;
 
     IngredientEntry a;
-    a.ingredient = "milk";
+    a.ingredient = "apple";
 
     IngredientEntry b;
     b.ingredient = "butter";
 
     IngredientEntry c;
-    c.ingredient = "eggs";
+    c.ingredient = "cinnamon";
 
     IngredientEntry d;
-    d.ingredient = "flour";
+    d.ingredient = "eggs";
 
     IngredientEntry e;
-    e.ingredient = "apple";
+    e.ingredient = "flour";
 
     IngredientEntry f;
-    f.ingredient = "sugar";
+    f.ingredient = "milk";
 
     IngredientEntry g;
-    g.ingredient = "vanilla";
+    g.ingredient = "nutmeg";
+
+    IngredientEntry h;
+    h.ingredient = "sugar";
+
+    IngredientEntry i;
+    i.ingredient = "vanilla";
+
+    IngredientEntry j;
+    j.ingredient = "yeast";
 
     tree.insert(a);
     tree.insert(b);
@@ -36,12 +45,19 @@ int main() {
     tree.insert(e);
     tree.insert(f);
     tree.insert(g);
+    tree.insert(h);
+    tree.insert(i);
+    tree.insert(j);
 
-    IngredientEntry* result = tree.search("butter");
+    IngredientEntry* result1 = tree.search("milk");
+    IngredientEntry* result2 = tree.search("vanilla");
+    IngredientEntry* result3 = tree.search("yeast");
+    IngredientEntry* result4 = tree.search("watermelon");
 
-    if(result != nullptr) {
-        std::cout << result->ingredient << std::endl;
-    }
+        std::cout << "milk: " << (result1 != nullptr) << std::endl;
+        std::cout << "vanilla: " << (result2 != nullptr) << std::endl;
+        std::cout << "yeast: " << (result3 != nullptr) << std::endl;
+        std::cout << "watermelon: " << (result4 != nullptr) << std::endl;
 
     return 0;
 }

@@ -30,6 +30,8 @@ class BTree { // BTree used for ingredient indexing
 private:
     BTreeNode* root;
 
+    IngredientEntry* searchHelper(BTreeNode* node, const std::string& ingredient);
+
 public:
     BTree();
 
