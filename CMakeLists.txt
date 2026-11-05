@@ -46,3 +46,12 @@ add_executable(
         backend/src/MinHeap.cpp
         backend/tests/test_heap.cpp
 )
+
+add_executable(
+        test_index_builder
+
+        backend/src/BTree.cpp
+        backend/src/RecipeLoader.cpp
+        backend/src/IngredientIndexBuilder.cpp
+        backend/tests/test_index_builder.cpp
+)
