@@ -4,6 +4,7 @@
 
 #include "BTree.h"
 #include <iostream>
+#include <chrono>
 
 int main() {
     BTree tree;
@@ -65,5 +66,19 @@ int main() {
     std::cout << "\nTree Structure:\n";
     tree.printStructure();
 
+    auto start =
+    std::chrono::high_resolution_clock::now();
+
+    auto result =
+        tree.search("milk");
+
+    auto end =
+        std::chrono::high_resolution_clock::now();
+
+    auto duration = std::chrono::duration_cast <std::chrono::microseconds> (end - start);
+
+    std::cout << "Search took " << duration.count() << " microseconds" << std::endl;
     return 0;
+
+
 }
