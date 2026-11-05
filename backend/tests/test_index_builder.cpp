@@ -14,13 +14,31 @@ int main() {
 
     IngredientIndexBuilder::buildIndex(recipes, tree);
 
-    auto result = tree.search("milk");
+    std::cout << "\nIngredient Traversal:\n" << std::endl;
+    tree.traverse();
 
-    if (result != nullptr) {
-        std::cout << "Ingredient: " << result->ingredient << std::endl;
+    std::vector<std::string> tests =
+    {
+        "milk",
+        "butter",
+        "sugar",
+        "vanilla",
+        "watermelon"
+    };
 
-        std::cout << "Recipes Found: " << result->recipeIDs.size() << std::endl;
-     }
+    for (const auto& ingredient : tests) {
+        auto result = tree.search(ingredient);
+
+        if (result != nullptr) {
+            std::cout << "Ingredient: " << result->ingredient << std::endl;
+
+            std::cout << "Recipes Found: " << result->recipeIDs.size() << std::endl;
+        }
+
+        else {
+            std::cout << ingredient << " -> not found" << std::endl;
+        }
+    }
 
     return 0;
 }
