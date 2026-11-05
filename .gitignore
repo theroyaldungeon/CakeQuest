@@ -1,0 +1,8 @@
+.idea/
+cmake-build-*/
+*.exe
+*.o
+CMakeCache.txt
+CMakeFiles/
+data/raw/*.csv
+data/cleaned/200k.json
