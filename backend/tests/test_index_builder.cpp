@@ -98,5 +98,44 @@ int main() {
         recipes
     );
 
+    displayRecipes(
+    "vanilla",
+    tree,
+    recipes
+);
+
+    std::cout
+        << "\n========== BENCHMARKS ==========\n";
+
+    std::vector<std::string> benchmarkTests =
+    {
+        "milk",
+        "butter",
+        "sugar",
+        "flour",
+        "vanilla",
+        "chocolate",
+        "egg",
+        "cream"
+    };
+
+    for(const auto& ingredient : benchmarkTests) {
+        const int NUM_SEARCHES = 1000;
+
+        auto start = std::chrono::high_resolution_clock::now();
+
+        for(int i = 0; i < NUM_SEARCHES; i++) {
+            tree.search(ingredient);
+        }
+
+        auto end = std::chrono::high_resolution_clock::now();
+
+        auto duration = std::chrono::duration_cast<std::chrono::microseconds>(end - start);
+
+        std::cout << ingredient << ": " << duration.count() << " us" << std::endl;
+
+        duration.count() / static_cast<double>(NUM_SEARCHES);
+    }
+
     return 0;
 }
