@@ -55,3 +55,14 @@ add_executable(
         backend/src/IngredientIndexBuilder.cpp
         backend/tests/test_index_builder.cpp
 )
+
+add_executable(
+        test_recommendation_engine
+
+        backend/src/BTree.cpp
+        backend/src/RecipeLoader.cpp
+        backend/src/IngredientIndexBuilder.cpp
+        backend/src/RecommendationEngine.cpp
+
+        backend/tests/test_recommendation_engine.cpp
+)

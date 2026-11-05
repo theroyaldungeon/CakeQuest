@@ -69,11 +69,9 @@ int main() {
     auto start =
     std::chrono::high_resolution_clock::now();
 
-    auto result =
-        tree.search("milk");
+    auto result = tree.search("milk");
 
-    auto end =
-        std::chrono::high_resolution_clock::now();
+    auto end = std::chrono::high_resolution_clock::now();
 
     auto duration = std::chrono::duration_cast <std::chrono::microseconds> (end - start);
 

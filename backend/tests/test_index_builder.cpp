@@ -6,6 +6,7 @@
 #include "IngredientIndexBuilder.h"
 
 #include <iostream>
+#include <fstream>
 #include <chrono>
 #include <vector>
 
@@ -25,6 +26,10 @@ int main() {
     BTree tree;
 
     IngredientIndexBuilder::buildIndex(recipes, tree);
+
+    std::ofstream benchmarkFile("C:/Users/maldo/CLionProjects/BakingBad/results/timing_results.csv");
+
+    benchmarkFile << "Ingredient,SearchTimeMicroseconds\n";
 
     std::cout << "\nIngredient Traversal:\n" << std::endl;
     tree.traverse();
@@ -80,35 +85,17 @@ int main() {
 
     std::cout << std::endl;
 
-    displayRecipes(
-    "milk",
-    tree,
-    recipes
-);
+    displayRecipes("milk", tree, recipes);
 
-    displayRecipes(
-        "butter",
-        tree,
-        recipes
-    );
+    displayRecipes("butter", tree, recipes);
 
-    displayRecipes(
-        "vanilla",
-        tree,
-        recipes
-    );
+    displayRecipes("vanilla", tree, recipes);
 
-    displayRecipes(
-    "vanilla",
-    tree,
-    recipes
-);
+    displayRecipes("vanilla", tree, recipes);
 
-    std::cout
-        << "\n========== BENCHMARKS ==========\n";
+    std::cout << "\n========== BENCHMARKS ==========\n";
 
-    std::vector<std::string> benchmarkTests =
-    {
+    std::vector<std::string> benchmarkTests = {
         "milk",
         "butter",
         "sugar",
@@ -135,7 +122,11 @@ int main() {
         std::cout << ingredient << ": " << duration.count() << " us" << std::endl;
 
         duration.count() / static_cast<double>(NUM_SEARCHES);
+
+        benchmarkFile << ingredient << "," << duration.count() << "\n";
     }
+
+    benchmarkFile.close();
 
     return 0;
 }
