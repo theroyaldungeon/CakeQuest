@@ -62,5 +62,8 @@ int main() {
     std::cout << "Tree traversal:" << std::endl;
     tree.traverse();
 
+    std::cout << "\nTree Structure:\n";
+    tree.printStructure();
+
     return 0;
 }

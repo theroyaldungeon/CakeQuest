@@ -25,6 +25,7 @@ public:
     void insertNonFull(const IngredientEntry& entry);
     void splitChild(int index, BTreeNode* child);
     void traverse();
+    void printStructure(int level);
 };
 
 class BTree { // BTree used for ingredient indexing
@@ -38,6 +39,7 @@ public:
 
     void insert(const IngredientEntry& entry);
     void traverse();
+    void printStructure();
 
     IngredientEntry* search(const std::string& ingredient);
 };

@@ -68,6 +68,12 @@ void BTree::traverse()
     std::cout << std::endl;
 }
 
+void BTree::printStructure() {
+    if(root != nullptr) {
+        root->printStructure(0);
+    }
+}
+
 void BTreeNode::insertNonFull(const IngredientEntry& entry) {
     int i = static_cast<int>(keys.size()) -1;
 
@@ -140,5 +146,21 @@ void BTreeNode::traverse() {
 
     if(!leaf) {
         children[i]->traverse();
+    }
+}
+
+void BTreeNode::printStructure(int level) {
+    std::cout << "Level " << level << ": ";
+
+    for(const auto& key : keys) {
+        std::cout << key.ingredient << " ";
+    }
+
+    std::cout << std::endl;
+
+    if(!leaf) {
+        for(auto child : children) {
+            child->printStructure(level + 1);
+        }
     }
 }
