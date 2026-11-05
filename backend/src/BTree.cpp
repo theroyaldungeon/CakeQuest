@@ -3,6 +3,7 @@
 //
 
 #include "BTree.h"
+#include <iostream>
 
 BTreeNode::BTreeNode(bool leaf) { // Create node and check if it's a leaf node
     this->leaf = leaf;
@@ -56,6 +57,15 @@ IngredientEntry* BTree::searchHelper(BTreeNode* node, const std::string& ingredi
     }
 
     return searchHelper(node->children[i], ingredient);
+}
+
+void BTree::traverse()
+{
+    if(root != nullptr) {
+        root->traverse();
+    }
+
+    std::cout << std::endl;
 }
 
 void BTreeNode::insertNonFull(const IngredientEntry& entry) {
@@ -117,3 +127,18 @@ void BTreeNode::splitChild(int index, BTreeNode* child) {
     keys.insert(keys.begin() + index, median);
 }
 
+void BTreeNode::traverse() {
+    int i;
+
+    for(i = 0; i < keys.size(); i++) {
+        if(!leaf) {
+            children[i]->traverse();
+        }
+
+        std::cout << keys[i].ingredient << " ";
+    }
+
+    if(!leaf) {
+        children[i]->traverse();
+    }
+}

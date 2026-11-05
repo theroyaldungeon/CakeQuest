@@ -38,26 +38,29 @@ int main() {
     IngredientEntry j;
     j.ingredient = "yeast";
 
-    tree.insert(a);
+    tree.insert(j);
     tree.insert(b);
     tree.insert(c);
-    tree.insert(d);
     tree.insert(e);
+    tree.insert(d);
     tree.insert(f);
     tree.insert(g);
-    tree.insert(h);
     tree.insert(i);
-    tree.insert(j);
+    tree.insert(h);
+    tree.insert(a);
 
     IngredientEntry* result1 = tree.search("milk");
     IngredientEntry* result2 = tree.search("vanilla");
     IngredientEntry* result3 = tree.search("yeast");
     IngredientEntry* result4 = tree.search("watermelon");
 
-        std::cout << "milk: " << (result1 != nullptr) << std::endl;
-        std::cout << "vanilla: " << (result2 != nullptr) << std::endl;
-        std::cout << "yeast: " << (result3 != nullptr) << std::endl;
-        std::cout << "watermelon: " << (result4 != nullptr) << std::endl;
+    std::cout << "milk: " << (result1 != nullptr) << std::endl;
+    std::cout << "vanilla: " << (result2 != nullptr) << std::endl;
+    std::cout << "yeast: " << (result3 != nullptr) << std::endl;
+    std::cout << "watermelon: " << (result4 != nullptr) << std::endl << std::endl;
+
+    std::cout << "Tree traversal:" << std::endl;
+    tree.traverse();
 
     return 0;
 }
