@@ -7,6 +7,17 @@
 
 #include <iostream>
 #include <chrono>
+#include <vector>
+
+void displayRecipes(const std::string& ingredient, BTree& tree, const std::vector<Recipe>& recipes) {
+    auto recipeIDs = tree.queryIngredient(ingredient);
+
+    std::cout << "\nRecipes containing " << ingredient << ":\n";
+
+    for(int id : recipeIDs) {
+        std::cout << recipes[id].title << std::endl;
+    }
+}
 
 int main() {
     auto recipes = RecipeLoader::loadRecipes("C:/Users/maldo/CLionProjects/BakingBad/data/cleaned/sample_recipes.json");
@@ -69,11 +80,23 @@ int main() {
 
     std::cout << std::endl;
 
-    std::cout << "\nRecipes containing milk:\n";
+    displayRecipes(
+    "milk",
+    tree,
+    recipes
+);
 
-    for(int id : milkRecipes) {
-        std::cout << recipes[id].title << std::endl;
-    }
+    displayRecipes(
+        "butter",
+        tree,
+        recipes
+    );
+
+    displayRecipes(
+        "vanilla",
+        tree,
+        recipes
+    );
 
     return 0;
 }
