@@ -46,13 +46,35 @@ IngredientEntry* BTree::search(const std::string& ingredient) { // search method
 }
 
 void BTreeNode::insertNonFull(const IngredientEntry& entry) {
-    keys.push_back(entry);
+    int i = static_cast<int>(keys.size()) -1;
 
-    int i = static_cast<int>(keys.size()) - 1;
+    if(leaf) {
+        keys.push_back(entry);
 
-    while (i > 0 && keys[i].ingredient < keys[i - 1].ingredient) {
-        std::swap(keys[i], keys[i - 1]);
-        i--;
+        while(i >= 0 && keys[i].ingredient > entry.ingredient) {
+            keys[i + 1] = keys[i];
+            i--;
+        }
+
+        keys[i + 1] = entry;
+    }
+
+    else {
+        while(i >= 0 && keys[i].ingredient > entry.ingredient) {
+            i--;
+        }
+
+        i++;
+
+        if(children[i]->keys.size() == 2 * T - 1) {
+            splitChild(i, children[i]);
+
+            if(keys[i].ingredient < entry.ingredient) {
+                i++;
+            }
+        }
+
+        children[i]->insertNonFull(entry);
     }
 }
 
