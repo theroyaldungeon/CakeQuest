@@ -37,6 +37,17 @@ IngredientEntry* BTree::search(const std::string& ingredient) { // search method
     return searchHelper(root,ingredient);
 }
 
+std::vector<int> BTree::queryIngredient(const std::string& ingredient) {
+    IngredientEntry* result = search(ingredient);
+
+    if(result == nullptr) {
+        return {};
+    }
+
+    return result->recipeIDs;
+}
+
+
 IngredientEntry* BTree::searchHelper(BTreeNode* node, const std::string& ingredient) {
     if(node == nullptr) {
         return nullptr;

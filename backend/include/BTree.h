@@ -42,6 +42,8 @@ public:
     void printStructure();
 
     IngredientEntry* search(const std::string& ingredient);
+
+    std::vector<int> queryIngredient(const std::string& ingredient);
 };
 
 #endif
