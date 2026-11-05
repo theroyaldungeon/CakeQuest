@@ -1,0 +1,32 @@
+{
+  "name": "cakequest",
+  "version": "1.0.0",
+  "description": "<H1> COP3530 - Project 2 </h1>\r This is the template for Project 2 repositories. It includes all the assignment instructions and documentation to help you use GitHub.",
+  "main": "vite.config.js",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/theroyaldungeon/CakeQuest.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/theroyaldungeon/CakeQuest/issues"
+  },
+  "homepage": "https://github.com/theroyaldungeon/CakeQuest#readme",
+  "dependencies": {
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
+    "react-router-dom": "^7.18.5"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^6.2.1",
+    "vite": "^8.3.6"
+  }
+}

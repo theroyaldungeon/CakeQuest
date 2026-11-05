@@ -1,0 +1,291 @@
+.homepage {
+    min-height: 100vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 50px 30px;
+}
+
+.homepage-content {
+    width: 100%;
+    max-width: 850px;
+    text-align: left;
+}
+
+.homepage-middle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 50px;
+    width: 100%;
+    margin-top: 20px;
+}
+
+.homepage-middle ul {
+    flex: 2;
+    text-align: left;
+}
+
+.homepage-image {
+    flex: 1;
+    font-size: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.homepage h1 {
+    font-family: 'Merriweather', serif;
+    font-size: 3rem;
+    margin-bottom: 15px;
+}
+
+.homepage h2 {
+    font-family: 'Space Mono', monospace;
+    font-size: 1.5rem;
+}
+
+.homepage p{
+    font-family: 'Space Mono', monospace;
+    font-size: 1rem;
+}
+
+.homepage ul {
+    background-color: #FFF0F4;
+    border: 1px solid #343434;
+    border-radius: 8px;
+    padding: 25px 40px;
+    text-align: left;
+    line-height: 2.2;
+    max-width: 600px;
+    width: 100%;
+}
+
+.homepage button {
+    background-color: #FF858D;
+    border: 1px solid #343434;
+    border-radius: 25hopx;
+    padding: 15px 35px;
+    font-family: 'Space Mono', monospace;
+    font-size: 1rem;
+    cursor: pointer;
+    margin-top: 25px;
+    transition: background-color 0.2s ease;
+}
+
+.homepage button:hover {
+    background-color: #FFF0F4;
+}
+
+.search--page {
+    min-height: 100vh;
+    padding: 40px 7%
+}
+
+.search-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.search-header h1 {
+    font-family: 'Merriweather', serif;
+    font-size: 2rem;
+}
+
+.search-header button {
+    background-color: #FFF0F4;
+    border: 1px solid #343434;
+    border-radius: 50%;
+    width: 65px;
+    height: 65px;
+    font-size: 1.8rem;
+    font-family: 'Space Mono', monospace;
+    cursor: pointer;
+}
+
+.search-welcome {
+    text-align: center;
+    margin-top: 50px;
+}
+
+.search-welcome h1 {
+    font-family: 'Merriweather', serif;
+    font-size: 2.5rem;
+}
+
+.search-welcome p {
+    font-family: 'Space Mono', monospace;
+    font-size: 1rem;
+}
+
+.search-bar {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin: 35px auto 50px;
+    max-width: 850px;
+}
+
+.search-bar input {
+    flex: 1;
+    padding: 15px;
+    border: 1px solid #343434;
+    border-radius: 8px;
+    background-color: #FFF0F4;
+    font-family: 'Space Mono', monospace;
+}
+
+.search-bar button {
+    background-color: #FF858D;
+    border: 1px solid #343434;
+    border-radius: 8px;
+    padding: 0 25px;
+    font-family: 'Space Mono', monospace;
+    cursor: pointer;
+}
+
+.search-content {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 30px;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.pending-results {
+    background-color: #FFF0F4;
+    border: 1px solid #343434;
+    border-radius: 10px;
+    padding: 25px;
+    min-height: 400px;
+}
+
+.filters {
+    background-color: #F5EBDD;
+    border: 1px solid #343434;
+    border-radius: 10px;
+    padding: 25px;
+    min-height: 400px;
+}
+
+.pending-results h2, .filters h2 {
+    font-family: 'Space Mono', monospace;
+    font-size: 1.3rem;
+    border-bottom: 1px solid #343434;
+    padding-bottom: 15px;
+}
+
+.pending-results p, .filters p, .filters h3{
+    font-family: 'Space Mono', monospace;
+    font-size: 0.9rem;
+}
+
+.comparison-page {
+    min-height: 100vh;
+    padding: 40px 7%
+}
+
+.comparison-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.comparison-header h1 {
+    font-family: 'Merriweather', serif;
+    font-size: 2rem;
+}
+
+.comparison-header button {
+    background-color: #FFF0F4;
+    border: 1px solid #343434;
+    border-radius: 8px;
+    padding: 12px 20px;
+    font-family: 'Space Mono', monospace;
+    cursor: pointer;
+}
+
+.comparison-title {
+    text-align: center;
+    margin-top: 60px;
+}
+
+.comparison-title h1 {
+    font-family: 'Merriweather', serif;
+    font-size: 2.5rem;
+}
+
+.comparison-title p {
+    font-family: 'Space Mono', monospace;
+    font-size: 1rem;
+}
+
+.comparison-content h2{
+    font-family: 'Merriweather' serif;
+    font-size: 2rem;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.structure-description {
+    background-color: #FFF0F4;
+    border: 1px solid #343434;
+    border-radius: 12px;
+    padding: 35px;
+    font-family: 'Space Mono', monospace;
+    line-height: 2;
+}
+
+.algorithm-visual {
+    background-color: #FFF8E9;
+    border: 1px dashed #343434;
+    border-radius: 8px;
+    min-height: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Space Mono', monospace;
+    margin-bottom: 25px
+}
+
+.efficiency-placeholder {
+    background-color: #FFF0F4;
+    border: 1px solid #343434;
+    border-radius: 10px;
+    padding: 25px;
+    margin-bottom: 20px;
+    font-family: 'Space Mono', monospace;
+}
+
+.comparison-navigation {
+    max-width: 1100px;
+    margin: 40px auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.comparison-navigation button {
+    background-color: #FF858D;
+    border: 1px solid #343434;
+    border-radius: 8px;
+    padding: 13px 25px;
+    font-family: 'Space Mono', monospace;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.comparison-navigation button:hover:not(:disabled){
+    background-color: #FFF0F4;
+}
+
+.comparison-navigation button:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+.comparison-navigation p {
+    font-family: 'Space Mono', monospace;
+}
