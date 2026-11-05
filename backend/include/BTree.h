@@ -13,12 +13,17 @@
 class BTreeNode { // Represents single node inside BTree
 
 public:
+    static const int T = 3;
+
     std::vector<IngredientEntry> keys;
     std::vector<BTreeNode*> children;
 
     bool leaf;
 
     BTreeNode(bool leaf);
+
+    void insertNonFull(const IngredientEntry& entry);
+    void splitChild(int index, BTreeNode* child);
 };
 
 class BTree { // BTree used for ingredient indexing

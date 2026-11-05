@@ -8,15 +8,36 @@
 int main() {
     BTree tree;
 
-    IngredientEntry milk;
+    IngredientEntry a;
+    a.ingredient = "milk";
 
-    milk.ingredient = "milk";
+    IngredientEntry b;
+    b.ingredient = "butter";
 
-    milk.recipeIDs.push_back(1);
+    IngredientEntry c;
+    c.ingredient = "eggs";
 
-    tree.insert(milk);
+    IngredientEntry d;
+    d.ingredient = "flour";
 
-    IngredientEntry* result = tree.search("milk");
+    IngredientEntry e;
+    e.ingredient = "apple";
+
+    IngredientEntry f;
+    f.ingredient = "sugar";
+
+    IngredientEntry g;
+    g.ingredient = "vanilla";
+
+    tree.insert(a);
+    tree.insert(b);
+    tree.insert(c);
+    tree.insert(d);
+    tree.insert(e);
+    tree.insert(f);
+    tree.insert(g);
+
+    IngredientEntry* result = tree.search("butter");
 
     if(result != nullptr) {
         std::cout << result->ingredient << std::endl;
