@@ -12,5 +12,5 @@ print("Created sample_recipes.json, recipes:", len(df))
 
 # 200k for testing and recording
 df = pd.read_csv(RAW, nrows=200000)
-df.to_json(OUT / "200k.json", orient="records", indent=4)
+df.to_json(OUT / "200k.json", orient="records", indent=None)
 print("Created 200k.json, recipes:", len(df))
