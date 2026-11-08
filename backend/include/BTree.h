@@ -1,0 +1,49 @@
+//
+// Created by maldo on 11/2/2026.
+//
+
+#ifndef CAKEQUEST_BTREE_H
+#define CAKEQUEST_BTREE_H
+
+#include "IngredientEntry.h"
+
+#include <string>
+#include <vector>
+
+class BTreeNode { // Represents single node inside BTree
+
+public:
+    static const int T = 3;
+
+    std::vector<IngredientEntry> keys;
+    std::vector<BTreeNode*> children;
+
+    bool leaf;
+
+    BTreeNode(bool leaf);
+
+    void insertNonFull(const IngredientEntry& entry);
+    void splitChild(int index, BTreeNode* child);
+    void traverse();
+    void printStructure(int level);
+};
+
+class BTree { // BTree used for ingredient indexing
+private:
+    BTreeNode* root;
+
+    IngredientEntry* searchHelper(BTreeNode* node, const std::string& ingredient);
+
+public:
+    BTree();
+
+    void insert(const IngredientEntry& entry);
+    void traverse();
+    void printStructure();
+
+    IngredientEntry* search(const std::string& ingredient);
+
+    std::vector<int> queryIngredient(const std::string& ingredient);
+};
+
+#endif
