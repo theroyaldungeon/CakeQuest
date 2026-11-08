@@ -3,7 +3,7 @@
 //
 
 #include "RecipeLoader.h"
-#include "C:/Users/maldo/CLionProjects/BakingBad/external/json.hpp"
+#include "json.hpp"
 
 #include <fstream>
 #include <iostream>
