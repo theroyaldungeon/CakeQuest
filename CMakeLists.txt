@@ -5,6 +5,7 @@ project(CakeQuest)
 set(CMAKE_CXX_STANDARD 17)
 
 include_directories(backend/include)
+include_directories(external)
 
 add_executable(
         CakeQuest
@@ -17,6 +18,8 @@ add_executable(
         backend/src/MinHeap.cpp
         backend/src/RecommendationEngine.cpp
         backend/src/IngredientIndexBuilder.cpp
+        backend/src/HashIndexBuilder.cpp
+        backend/src/HashRecommendationEngine.cpp
 )
 
 add_executable(
@@ -65,4 +68,16 @@ add_executable(
         backend/src/RecommendationEngine.cpp
 
         backend/tests/test_recommendation_engine.cpp
+)
+
+add_executable(
+        test_engine_compare
+
+        backend/src/BTree.cpp
+        backend/src/HashIndex.cpp
+        backend/src/IngredientIndexBuilder.cpp
+        backend/src/HashIndexBuilder.cpp
+        backend/src/RecommendationEngine.cpp
+        backend/src/HashRecommendationEngine.cpp
+        backend/tests/test_engine_compare.cpp
 )
