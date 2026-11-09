@@ -154,6 +154,7 @@ function DataComp() {
                                 className="efficiency chart"
                                 src={lookupTimeChart}
                                 alt = "Lookup time of B-tree and hash index"
+                                style={{ width: '100%', maxWidth: '400px', display: 'block', margin: '15px auto 0' }}
                             />
 
 
