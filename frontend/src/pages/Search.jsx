@@ -1,26 +1,60 @@
 
-import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
+import { useState, useEffect } from "react";
 import RecipeCard from "../components/RecipeCard.jsx";
 import Filters from "../components/Filters.jsx";
 
 function Search() {
     const navigate = useNavigate();
+    const location = useLocation();
 
-    const [ingredientInput, setIngredientInput] = useState("");
-    const [recipes, setRecipes] = useState([]);
+    const [ingredientInput, setIngredientInput] = useState(
+        location.state?.ingredientInput || ""
+    );
+
+    const [recipes, setRecipes] = useState(
+        location.state?.recipes || []
+    );
+
     const [error, setError] = useState("");
     const [loading, setLoading] = useState(false);
 
+    const [searchMethod, setSearchMethod] = useState(
+        location.state?.searchMethod || "btree"
+    );
+
     // Filter settings
-    const [filters, setFilters] = useState({
-        shortPrepTime: false,
-        allIngredients: false
-    });
+    const [filters, setFilters] = useState(
+        location.state?.filters || {
+            shortPrepTime: false,
+            allIngredients: false
+        }
+    );
+
+    // Restore search results when returning from a recipe page.
+    useEffect(() => {
+        if (location.state?.recipes) {
+            setRecipes(location.state.recipes);
+            setIngredientInput(location.state.ingredientInput || "");
+            setSearchMethod(location.state.searchMethod || "btree");
+            setFilters(location.state.filters || {
+                shortPrepTime: false,
+                allIngredients: false
+            });
+        }
+    }, [location.key]);
 
     function openRecipe(recipe) {
         navigate("/recipe", {
-            state: { recipe: recipe }
+            state: {
+                recipe: recipe,
+                searchState: {
+                    ingredientInput,
+                    recipes,
+                    searchMethod,
+                    filters
+                }
+            }
         });
     }
 
@@ -31,7 +65,7 @@ function Search() {
             .filter(item => item.length > 0);
 
         if (ingredients.length === 0) {
-            setError("Please enter at least one ingredient.");
+            setError("Please input one recipe ingredient.");
             return;
         }
 
@@ -46,9 +80,10 @@ function Search() {
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify({
-                ingredients,
-                allIngredients: filters.allIngredients
-            })
+                    ingredients,
+                    allIngredients: filters.allIngredients,
+                    searchMethod
+                })
             });
 
             const data = await response.json();
@@ -68,6 +103,7 @@ function Search() {
 
     // Apply selected filters to recipes
     const filteredRecipes = recipes.filter(recipe => {
+
         // Prep time filter
         if (
             filters.shortPrepTime &&
@@ -76,9 +112,7 @@ function Search() {
             return false;
         }
 
-        // Ingredient matching will be handled by the backend.
-        // Currently, the backend uses exact ingredient matching.
-
+        // Ingredient matching is handled by the backend.
         return true;
     });
 
@@ -114,17 +148,22 @@ function Search() {
                 </button>
             </div>
 
-            {error && <p className="error-message">{error}</p>}
-
             <div className="search-content">
 
                 <div className="pending-results">
+
                     <h2>Search Results ({filteredRecipes.length})</h2>
 
-                    {loading && <p>Searching for recipes...</p>}
+                    {error && (
+                        <p className="error-message">{error}</p>
+                    )}
+
+                    {loading && (
+                        <p>Searching for recipes...</p>
+                    )}
 
                     {filteredRecipes.length === 0 && !loading && !error && (
-                        <p>No recipes found. Try different ingredients or filters.</p>
+                        <p>Enter ingredients to find recipes.</p>
                     )}
 
                     {filteredRecipes.map(recipe => (
@@ -134,11 +173,14 @@ function Search() {
                             onClick={openRecipe}
                         />
                     ))}
+
                 </div>
 
                 <Filters
                     filters={filters}
                     setFilters={setFilters}
+                    searchMethod={searchMethod}
+                    setSearchMethod={setSearchMethod}
                 />
 
             </div>

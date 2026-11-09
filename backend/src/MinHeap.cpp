@@ -1,8 +1,3 @@
-<<<<<<< HEAD
-//
-// Created by maldo on 11/2/2026.
-//
-=======
 //Edited by St Lot
 
 #include "MinHeap.h"
@@ -150,4 +145,3 @@ int calculateTime(const Recipe& recipe){
     return total;
 }
 
->>>>>>> temp-Connection-of-Front-end-to-backened,-still-minor-filtering-errors

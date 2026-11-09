@@ -23,7 +23,11 @@ function Recipe() {
 
             <button
                 className="recipe-back-button"
-                onClick={() => navigate("/search")}
+                onClick={() => navigate("/search", {
+                    state: {
+                        searchState: location.state?.searchState
+                    }
+                })}
             >
                 ← Back to Search
             </button>

@@ -412,3 +412,26 @@
         font-size: 1.8rem;
     }
 }
+
+.search-method {
+    margin: 20px 0;
+}
+
+.search-method-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.search-method-buttons button {
+    padding: 10px 20px;
+    border: 2px solid #d9a0a0;
+    border-radius: 8px;
+    background: white;
+    cursor: pointer;
+}
+
+.search-method-buttons button.active {
+    background: #d9a0a0;
+    color: white;
+    border-color: #d9a0a0;
+}

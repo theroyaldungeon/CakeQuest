@@ -69,13 +69,17 @@ backend.on("close", (code) => {
 });
 
 // Send a search request to C++.
-function searchBackend(ingredients) {
+function searchBackend(ingredients, allIngredients, searchMethod) {
     return new Promise((resolve, reject) => {
 
         pendingRequests.push({ resolve, reject });
 
         backend.stdin.write(
-            JSON.stringify({ ingredients }) + "\n",
+            JSON.stringify({
+                ingredients,
+                allIngredients,
+                searchMethod
+            }) + "\n",
             (error) => {
                 if (error) {
                     const pending = pendingRequests.pop();
@@ -137,8 +141,22 @@ const server = http.createServer(async (req, res) => {
             return;
         }
 
+        // Read frontend search selections
+        const searchMethod = request.searchMethod || "btree";
+        const allIngredients = request.allIngredients === true;
+
+        if (!["btree", "hash"].includes(searchMethod)) {
+            res.writeHead(400);
+            res.end(JSON.stringify({
+                error: "Invalid search method."
+            }));
+            return;
+        }
+
         const results = await searchBackend(
-            request.ingredients.map(item => item.trim())
+            request.ingredients.map(item => item.trim()),
+            allIngredients,
+            searchMethod
         );
 
         res.writeHead(200, {

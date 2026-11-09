@@ -1,16 +1,3 @@
-<<<<<<< HEAD
-//
-// Created by maldo on 11/3/2026.
-//
-
-#include <iostream>
-
-int main() {
-    std::cout << "CakeQuest Main Application" << std::endl;
-
-    return 0;
-}
-=======
 
 #include <iostream>
 #include <string>
@@ -22,6 +9,9 @@ int main() {
 #include "IngredientIndexBuilder.h"
 #include "RecommendationEngine.h"
 #include "BTree.h"
+#include "HashIndex.h"
+#include "HashIndexBuilder.h"
+#include "HashRecommendationEngine.h"
 #include "json.hpp"
 #include "MinHeap.h"
 
@@ -29,27 +19,30 @@ using json = nlohmann::json;
 
 int main(int argc, char* argv[]) {
 
-    // Path for whatever computer
     std::string filename = (argc > 1)
         ? argv[1]
         : "data/cleaned/200k.json";
 
     // Load recipes
-    std::vector<Recipe> recipes = RecipeLoader::loadRecipes(filename);
+    std::vector<Recipe> recipes =
+        RecipeLoader::loadRecipes(filename);
 
     if (recipes.empty()) {
         std::cerr << "Failed to load recipes." << std::endl;
         return 1;
     }
 
-    // Build B-tree
+    // Build B-tree index
     BTree tree;
     IngredientIndexBuilder::buildIndex(recipes, tree);
 
-    std::cerr << "Loaded " << recipes.size()
-              << " recipes. B-tree ready." << std::endl;
+    // Build Hash index
+    HashIndex hashIndex;
+    HashIndexBuilder::buildIndex(recipes, hashIndex);
 
-    // Search requests
+    std::cerr << "Loaded " << recipes.size()
+              << " recipes. Both indexes ready." << std::endl;
+
     std::string line;
 
     while (std::getline(std::cin, line)) {
@@ -59,53 +52,97 @@ int main(int argc, char* argv[]) {
             json request = json::parse(line);
 
             std::vector<std::string> ingredients =
-                request.at("ingredients").get<std::vector<std::string>>();
+                request.at("ingredients")
+                    .get<std::vector<std::string>>();
 
-            // Normalize user input
+            // Normalize ingredients
             for (std::string& ingredient : ingredients) {
+
                 std::transform(
                     ingredient.begin(),
                     ingredient.end(),
                     ingredient.begin(),
                     [](unsigned char c) {
-                        return static_cast<char>(std::tolower(c));
+                        return static_cast<char>(
+                            std::tolower(c)
+                        );
                     }
                 );
             }
 
-            // Read filter selection
+            // Read frontend selections
             bool allIngredients =
                 request.value("allIngredients", false);
 
+            std::string searchMethod =
+                request.value("searchMethod", "btree");
+
+            if (searchMethod != "btree" &&
+                searchMethod != "hash") {
+
+                throw std::runtime_error(
+                    "Invalid search method."
+                );
+            }
+
             std::vector<int> sortedMatches;
 
+            // ALL INGREDIENTS FILTER
             if (allIngredients) {
 
-                // Exact matches, sorted by prep time
-                std::vector<int> matches =
-                    RecommendationEngine::searchExactMatch(
-                        ingredients, tree
-                    );
+                std::vector<int> matches;
 
+                if (searchMethod == "hash") {
+
+                    matches =
+                        HashRecommendationEngine::searchExactMatch(
+                            ingredients, hashIndex
+                        );
+
+                } else {
+
+                    matches =
+                        RecommendationEngine::searchExactMatch(
+                            ingredients, tree
+                        );
+                }
+
+                // Sort exact matches by prep time
                 MinHeap timeHeap;
 
                 for (int id : matches) {
-                    timeHeap.insert(id, calculateTime(recipes[id]));
+                    timeHeap.insert(
+                        id,
+                        calculateTime(recipes[id])
+                    );
                 }
 
                 sortedMatches = timeHeap.heapSort();
 
             }
+
+            // PARTIAL INGREDIENT MATCHING
             else {
 
-                // Partial matches, ranked by ingredient count
-                auto rankedMatches =
-                    RecommendationEngine::searchRankedMatches(
-                        ingredients, tree
-                    );
+                std::vector<std::pair<int, int>> rankedMatches;
 
-                // Highest ingredient match count first.
-                // Equal counts retain their existing relative order.
+                if (searchMethod == "hash") {
+
+                    rankedMatches =
+                        HashRecommendationEngine::searchRankedMatches(
+                            ingredients, hashIndex
+                        );
+
+                } else {
+
+                    rankedMatches =
+                        RecommendationEngine::searchRankedMatches(
+                            ingredients, tree
+                        );
+                }
+
+                // Sort by matching ingredient count.
+                // Preserve the engine's order for ties.
                 std::stable_sort(
                     rankedMatches.begin(),
                     rankedMatches.end(),
@@ -119,7 +156,7 @@ int main(int argc, char* argv[]) {
                 }
             }
 
-            // Build JSON results
+            // Build JSON response
             json results = json::array();
 
             for (int id : sortedMatches) {
@@ -138,9 +175,10 @@ int main(int argc, char* argv[]) {
                 });
             }
 
-            // stdout is reserved for JSON responses
-            std::cout << json{{"recipes", results}}.dump()
-                      << std::endl;
+            // stdout reserved for JSON
+            std::cout
+                << json{{"recipes", results}}.dump()
+                << std::endl;
 
         }
         catch (const std::exception& e) {
@@ -153,4 +191,3 @@ int main(int argc, char* argv[]) {
 
     return 0;
 }
->>>>>>> temp-Connection-of-Front-end-to-backened,-still-minor-filtering-errors

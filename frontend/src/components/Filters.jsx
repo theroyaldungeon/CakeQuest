@@ -1,23 +1,53 @@
 
-function Filters({ filters, setFilters }) {
+function Filters({
+    filters,
+    setFilters,
+    searchMethod,
+    setSearchMethod
+}) {
+
+    // Update filter settings
+    function handleFilterChange(filterName) {
+        setFilters(prev => ({
+            ...prev,
+            [filterName]: !prev[filterName]
+        }));
+    }
+
     return (
         <div className="filters">
+
             <h2>Filters</h2>
 
-            <h3>Prep time</h3>
+            <h3>Search Method</h3>
+
+            <div className="search-method-buttons">
+
+                <button
+                    className={searchMethod === "btree" ? "active" : ""}
+                    onClick={() => setSearchMethod("btree")}
+                >
+                    B-Tree
+                </button>
+
+                <button
+                    className={searchMethod === "hash" ? "active" : ""}
+                    onClick={() => setSearchMethod("hash")}
+                >
+                    Hash Table
+                </button>
+
+            </div>
+
+            <h3>Prep Time</h3>
 
             <label>
                 <input
                     type="checkbox"
                     checked={filters.shortPrepTime}
-                    onChange={(e) =>
-                        setFilters({
-                            ...filters,
-                            shortPrepTime: e.target.checked
-                        })
-                    }
+                    onChange={() => handleFilterChange("shortPrepTime")}
                 />
-                Shortest to Longest Prep Time
+                30 minutes or less
             </label>
 
             <h3>Ingredients</h3>
@@ -26,15 +56,11 @@ function Filters({ filters, setFilters }) {
                 <input
                     type="checkbox"
                     checked={filters.allIngredients}
-                    onChange={(e) =>
-                        setFilters({
-                            ...filters,
-                            allIngredients: e.target.checked
-                        })
-                    }
+                    onChange={() => handleFilterChange("allIngredients")}
                 />
-                Matched all ingredients 
+                All ingredients available
             </label>
+
         </div>
     );
 }
