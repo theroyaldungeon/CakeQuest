@@ -6,3 +6,4 @@ CMakeCache.txt
 CMakeFiles/
 data/raw/*.csv
 data/cleaned/200k.json
+/data/cleaned/ner_200k.json

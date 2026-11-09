@@ -81,3 +81,17 @@ add_executable(
         backend/src/HashRecommendationEngine.cpp
         backend/tests/test_engine_compare.cpp
 )
+
+add_executable(
+        benchmark
+
+        backend/src/BTree.cpp
+        backend/src/HashIndex.cpp
+        backend/src/IngredientIndexBuilder.cpp
+        backend/src/HashIndexBuilder.cpp
+        backend/benchmarks/benchmark.cpp
+        backend/benchmarks/benchmark.cpp
+)
+target_compile_definitions(benchmark PRIVATE PROJECT_ROOT="${CMAKE_SOURCE_DIR}")
+target_compile_options(benchmark PRIVATE $<$<CXX_COMPILER_ID:GNU,Clang,AppleClang>:-O2>)
+target_link_options(benchmark PRIVATE -static)
