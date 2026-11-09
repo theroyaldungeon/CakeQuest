@@ -44,13 +44,6 @@ add_executable(
 )
 
 add_executable(
-        test_heap
-
-        backend/src/MinHeap.cpp
-        backend/tests/test_heap.cpp
-)
-
-add_executable(
         test_index_builder
 
         backend/src/BTree.cpp

@@ -50,6 +50,7 @@ std::vector<std::pair<int,int>> RecommendationEngine::searchRankedMatches(const 
             counts[id]++;
         }
     }
+    
 
     std::vector<std::pair<int,int>> results;
 
@@ -93,6 +94,24 @@ RecommendationEngine::recommendRecipes(const std::vector<std::string>& ingredien
     for(const auto& pair : rankedRecipes) {
         results.push_back(recipes[pair.first]
         );
+    }
+
+    return results;
+}
+
+std::vector<Recipe> RecommendationEngine::searchAllIngredients(
+    const std::vector<std::string>& ingredients,
+    BTree& tree,
+    const std::vector<Recipe>& recipes
+) {
+    std::vector<int> ids = searchExactMatch(ingredients, tree);
+
+    std::vector<Recipe> results;
+
+    for (int id : ids) {
+        if (id >= 0 && id < recipes.size()) {
+            results.push_back(recipes[id]);
+        }
     }
 
     return results;
