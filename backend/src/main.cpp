@@ -4,6 +4,7 @@
 #include <vector>
 #include <algorithm>
 #include <cctype>
+#include <unordered_set>
 
 #include "RecipeLoader.h"
 #include "IngredientIndexBuilder.h"
@@ -23,7 +24,7 @@ int main(int argc, char* argv[]) {
         ? argv[1]
         : "data/cleaned/200k.json";
 
-    // Load recipes
+    // Load recipes once.
     std::vector<Recipe> recipes =
         RecipeLoader::loadRecipes(filename);
 
@@ -32,11 +33,10 @@ int main(int argc, char* argv[]) {
         return 1;
     }
 
-    // Build B-tree index
+    // Build both indexes once.
     BTree tree;
     IngredientIndexBuilder::buildIndex(recipes, tree);
 
-    // Build Hash index
     HashIndex hashIndex;
     HashIndexBuilder::buildIndex(recipes, hashIndex);
 
@@ -55,22 +55,36 @@ int main(int argc, char* argv[]) {
                 request.at("ingredients")
                     .get<std::vector<std::string>>();
 
-            // Normalize ingredients
-            for (std::string& ingredient : ingredients) {
+            // Normalize and remove duplicate ingredients.
+            std::unordered_set<std::string> uniqueIngredients;
+            std::vector<std::string> normalizedIngredients;
+
+            normalizedIngredients.reserve(ingredients.size());
+
+            for (std::string ingredient : ingredients) {
 
                 std::transform(
                     ingredient.begin(),
                     ingredient.end(),
                     ingredient.begin(),
                     [](unsigned char c) {
-                        return static_cast<char>(
-                            std::tolower(c)
-                        );
+                        return static_cast<char>(std::tolower(c));
                     }
+                );
+
+                if (!ingredient.empty() &&
+                    uniqueIngredients.insert(ingredient).second) {
+
+                    normalizedIngredients.push_back(ingredient);
+                }
+            }
+
+            if (normalizedIngredients.empty()) {
+                throw std::runtime_error(
+                    "Please provide valid ingredients."
                 );
             }
 
-            // Read frontend selections
             bool allIngredients =
                 request.value("allIngredients", false);
 
@@ -96,25 +110,30 @@ int main(int argc, char* argv[]) {
 
                     matches =
                         HashRecommendationEngine::searchExactMatch(
-                            ingredients, hashIndex
+                            normalizedIngredients, hashIndex
                         );
 
                 } else {
 
                     matches =
                         RecommendationEngine::searchExactMatch(
-                            ingredients, tree
+                            normalizedIngredients, tree
                         );
                 }
 
-                // Sort exact matches by prep time
+                // Sort exact matches by preparation time.
                 MinHeap timeHeap;
 
                 for (int id : matches) {
-                    timeHeap.insert(
-                        id,
-                        calculateTime(recipes[id])
-                    );
+
+                    if (id >= 0 &&
+                        id < static_cast<int>(recipes.size())) {
+
+                        timeHeap.insert(
+                            id,
+                            calculateTime(recipes[id])
+                        );
+                    }
                 }
 
                 sortedMatches = timeHeap.heapSort();
@@ -130,19 +149,18 @@ int main(int argc, char* argv[]) {
 
                     rankedMatches =
                         HashRecommendationEngine::searchRankedMatches(
-                            ingredients, hashIndex
+                            normalizedIngredients, hashIndex
                         );
 
                 } else {
 
                     rankedMatches =
                         RecommendationEngine::searchRankedMatches(
-                            ingredients, tree
+                            normalizedIngredients, tree
                         );
                 }
 
                 // Sort by matching ingredient count.
-                // Preserve the engine's order for ties.
                 std::stable_sort(
                     rankedMatches.begin(),
                     rankedMatches.end(),
@@ -151,12 +169,26 @@ int main(int argc, char* argv[]) {
                     }
                 );
 
+                sortedMatches.reserve(rankedMatches.size());
+
                 for (const auto& match : rankedMatches) {
-                    sortedMatches.push_back(match.first);
+
+                    if (match.first >= 0 &&
+                        match.first < static_cast<int>(recipes.size())) {
+
+                        sortedMatches.push_back(match.first);
+                    }
                 }
             }
 
-            // Build JSON response
+            // LIMIT RESULTS TO 100 RECIPES.
+            const size_t MAX_RESULTS = 100;
+
+            if (sortedMatches.size() > MAX_RESULTS) {
+                sortedMatches.resize(MAX_RESULTS);
+            }
+
+            // Build JSON response.
             json results = json::array();
 
             for (int id : sortedMatches) {
@@ -175,7 +207,7 @@ int main(int argc, char* argv[]) {
                 });
             }
 
-            // stdout reserved for JSON
+            // stdout is reserved for JSON responses.
             std::cout
                 << json{{"recipes", results}}.dump()
                 << std::endl;
