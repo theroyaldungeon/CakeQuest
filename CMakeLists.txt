@@ -4,8 +4,15 @@ project(CakeQuest)
 
 set(CMAKE_CXX_STANDARD 17)
 
+<<<<<<< HEAD
 include_directories(backend/include)
 include_directories(external)
+=======
+include_directories(
+    backend/include
+    external
+)
+>>>>>>> temp-Connection-of-Front-end-to-backened,-still-minor-filtering-errors
 
 add_executable(
         CakeQuest
@@ -18,8 +25,15 @@ add_executable(
         backend/src/MinHeap.cpp
         backend/src/RecommendationEngine.cpp
         backend/src/IngredientIndexBuilder.cpp
+<<<<<<< HEAD
         backend/src/HashIndexBuilder.cpp
         backend/src/HashRecommendationEngine.cpp
+=======
+)
+
+set_target_properties(CakeQuest PROPERTIES
+    RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin"
+>>>>>>> temp-Connection-of-Front-end-to-backened,-still-minor-filtering-errors
 )
 
 add_executable(
@@ -68,6 +82,7 @@ add_executable(
         backend/src/RecommendationEngine.cpp
 
         backend/tests/test_recommendation_engine.cpp
+<<<<<<< HEAD
 )
 
 add_executable(
@@ -80,4 +95,6 @@ add_executable(
         backend/src/RecommendationEngine.cpp
         backend/src/HashRecommendationEngine.cpp
         backend/tests/test_engine_compare.cpp
+=======
+>>>>>>> temp-Connection-of-Front-end-to-backened,-still-minor-filtering-errors
 )

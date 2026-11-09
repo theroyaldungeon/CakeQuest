@@ -50,6 +50,10 @@ std::vector<std::pair<int,int>> RecommendationEngine::searchRankedMatches(const 
             counts[id]++;
         }
     }
+<<<<<<< HEAD
+=======
+    
+>>>>>>> temp-Connection-of-Front-end-to-backened,-still-minor-filtering-errors
 
     std::vector<std::pair<int,int>> results;
 
@@ -96,4 +100,25 @@ RecommendationEngine::recommendRecipes(const std::vector<std::string>& ingredien
     }
 
     return results;
+<<<<<<< HEAD
+=======
+}
+
+std::vector<Recipe> RecommendationEngine::searchAllIngredients(
+    const std::vector<std::string>& ingredients,
+    BTree& tree,
+    const std::vector<Recipe>& recipes
+) {
+    std::vector<int> ids = searchExactMatch(ingredients, tree);
+
+    std::vector<Recipe> results;
+
+    for (int id : ids) {
+        if (id >= 0 && id < recipes.size()) {
+            results.push_back(recipes[id]);
+        }
+    }
+
+    return results;
+>>>>>>> temp-Connection-of-Front-end-to-backened,-still-minor-filtering-errors
 }

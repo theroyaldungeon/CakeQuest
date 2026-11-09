@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 #include "HashIndex.h"
 #include <cassert>
 #include <iostream>
@@ -12,3 +13,8 @@ int main() {
     assert(h.queryIngredient("unicorn").empty());
     std::cout << "test_hash passed\n";
 }
+=======
+//
+// Created by maldo on 11/2/2026.
+//
+>>>>>>> temp-Connection-of-Front-end-to-backened,-still-minor-filtering-errors

@@ -21,6 +21,8 @@ public:
     static std::vector<std::pair<int,int>> searchRankedMatches(const std::vector<std::string>& ingredients, BTree& tree);
 
     static std::vector<Recipe> recommendRecipes(const std::vector<std::string>& ingredients, BTree& tree, const std::vector<Recipe>& recipes);
+
+    static std::vector<Recipe> searchAllIngredients(const std::vector<std::string>& ingredients, BTree& tree, const std::vector<Recipe>& recipes);
 };
 
 #endif

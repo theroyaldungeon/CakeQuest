@@ -289,3 +289,126 @@
 .comparison-navigation p {
     font-family: 'Space Mono', monospace;
 }
+
+
+.recipe-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px;
+    margin-bottom: 15px;
+    background-color: white;
+    border: 1px solid #e0d5cb;
+    border-radius: 12px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.recipe-card-info h3 {
+    margin: 0 0 8px 0;
+}
+
+.recipe-card-info p {
+    color: #777;
+    margin: 0;
+}
+
+.recipe-card button {
+    padding: 10px 16px;
+    border: none;
+    border-radius: 8px;
+    background-color: #a86f50;
+    color: white;
+    cursor: pointer;
+}
+
+.recipe-card button:hover {
+    background-color: #89563d;
+}
+
+.recipe-page {
+    min-height: 100vh;
+    padding: 40px 7%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.recipe-back-button {
+    background-color: #FFF0F4;
+    border: 1px solid #343434;
+    border-radius: 8px;
+    padding: 12px 20px;
+    font-family: 'Space Mono', monospace;
+    cursor: pointer;
+    margin-bottom: 35px;
+}
+
+.recipe-back-button:hover {
+    background-color: #FF858D;
+}
+
+.recipe-header {
+    margin-bottom: 35px;
+    border-bottom: 1px solid #343434;
+    padding-bottom: 20px;
+}
+
+.recipe-header h1 {
+    font-family: 'Merriweather', serif;
+    font-size: 2.5rem;
+    margin-bottom: 12px;
+}
+
+.recipe-time {
+    font-family: 'Space Mono', monospace;
+    font-size: 1rem;
+    color: #76534b;
+}
+
+.recipe-information {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 30px;
+    align-items: start;
+}
+
+.recipe-ingredients,
+.recipe-directions {
+    background-color: #FFF0F4;
+    border: 1px solid #343434;
+    border-radius: 10px;
+    padding: 25px;
+}
+
+.recipe-ingredients h2,
+.recipe-directions h2 {
+    font-family: 'Merriweather', serif;
+    font-size: 1.5rem;
+    border-bottom: 1px solid #343434;
+    padding-bottom: 12px;
+}
+
+.recipe-ingredients ul,
+.recipe-directions ul {
+    padding-left: 25px;
+    font-family: 'Space Mono', monospace;
+    line-height: 2;
+}
+
+.recipe-ingredients li,
+.recipe-directions li {
+    margin-bottom: 12px;
+}
+
+.recipe-original-link:hover {
+    background-color: #FFF0F4;
+}
+
+@media (max-width: 700px) {
+    .recipe-information {
+        grid-template-columns: 1fr;
+    }
+
+    .recipe-header h1 {
+        font-size: 1.8rem;
+    }
+}
