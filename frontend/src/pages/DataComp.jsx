@@ -1,6 +1,9 @@
 
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import buildTimeChart from '../assets/charts/build_time.png';
+import lookupTimeChart from '../assets/charts/lookup_time.png';
+import memoryUsageChart from '../assets/charts/memory_usage.png';
 
 function DataComp() {
 
@@ -132,21 +135,27 @@ function DataComp() {
 
                         <div className="efficiency-placeholder">
 
-                            <h3>Execution Time</h3>
+                            <h3>Build Time</h3>
 
-                            <p>
-                                Waiting for data...
-                            </p>
+
+                            <img
+                                className="efficiency-chart"
+                                src={buildTimeChart}
+                                alt="Build time of the B-tree and hash index"
+                            />
 
                         </div>
 
                         <div className="efficiency-placeholder">
 
-                            <h3>Number of Comparisons</h3>
+                            <h3>Lookup Time</h3>
 
-                            <p>
-                                Waiting for data...
-                            </p>
+                            <img
+                                className="efficiency chart"
+                                src={lookupTimeChart}
+                                alt = "Lookup time of B-tree and hash index"
+                            />
+
 
                         </div>
 
@@ -154,9 +163,11 @@ function DataComp() {
 
                             <h3>Memory Usage</h3>
 
-                            <p>
-                                Waiting for data...
-                            </p>
+                            <img
+                                className="efficiency-chart"
+                                src={memoryUsageChart}
+                                alt="Memory usage of the B-tree and hash index"
+                            />
 
                         </div>
 
