@@ -11,9 +11,8 @@ const projectRoot = path.resolve(__dirname, "..");
 const executable = path.join(
     projectRoot,
     "build",
-    "bin",
     process.platform === "win32" ? "CakeQuest.exe" : "CakeQuest"
-);
+);  
 
 // Recipe dataset
 const dataset = path.join(
